@@ -1,14 +1,31 @@
-<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>R744 CoolProp WASM</title><link rel="stylesheet" href="style.css"></head><body>
-<header><div><h1>R744 transkritische koelkring</h1><p>CoolProp WebAssembly, volledig in de browser</p></div><span id="engine">CoolProp laden...</span></header>
-<main><aside><h2>Invoer</h2>
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>R744 CoolProp WASM Simulator</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header>
+  <div><h1>R744 transkritische koelkring</h1><p>CoolProp WebAssembly, volledig in de browser</p></div>
+  <span id="engine">CoolProp laden...</span>
+</header>
+<main>
+<aside><h2>Invoer</h2>
 <label>Verdampingstemperatuur <output id="vTe"></output><input id="Te" type="range" min="-40" max="5" value="-10"></label>
 <label>Hogedruk <output id="vPh"></output><input id="Ph" type="range" min="75" max="150" value="95"></label>
 <label>Gaskoeler uit <output id="vT3"></output><input id="T3" type="range" min="15" max="55" value="32"></label>
 <label>Oververhitting <output id="vSH"></output><input id="SH" type="range" min="1" max="25" value="8"></label>
 <label>Isentropisch rendement <output id="veta"></output><input id="eta" type="range" min="45" max="90" value="70"></label>
 <label>Koelvermogen <output id="vQ"></output><input id="Q" type="range" min="5" max="150" step="5" value="30"></label>
-<div class="hint">Alle eigenschappen worden lokaal in de browser berekend. Er worden geen procesgegevens verstuurd.</div></aside>
-<section><div id="error"></div><div class="cards"><article><small>COP</small><b id="cop">-</b></article><article><small>Compressor</small><b id="power">-</b></article><article><small>Massadebiet</small><b id="mdot">-</b></article><article><small>Gaskoeler</small><b id="qout">-</b></article></div>
+<div class="hint">De R744-eigenschappen worden lokaal berekend met CoolProp WebAssembly.</div></aside>
+<section>
+<div id="error"></div>
+<div class="cards"><article><small>COP</small><b id="cop">-</b></article><article><small>Compressor</small><b id="power">-</b></article><article><small>Massadebiet</small><b id="mdot">-</b></article><article><small>Gaskoeler</small><b id="qout">-</b></article></div>
 <div class="panel"><h2>Log(p)-h-diagram</h2><svg id="chart" viewBox="0 0 980 590"></svg><div class="legend">Blauw: kringproces · Grijs: verzadigingskoepel · Gestreept: isothermen</div></div>
-<div class="panel"><h2>Toestandspunten</h2><table><thead><tr><th>Punt</th><th>Plaats</th><th>Druk (bar)</th><th>Temperatuur (°C)</th><th>Enthalpie (kJ/kg)</th><th>Entropie (kJ/kgK)</th></tr></thead><tbody id="states"></tbody></table></div></section></main>
-<script>var Module={locateFile:function(path){return path.endsWith('.wasm')?'coolprop.wasm':path},onRuntimeInitialized:function(){window.dispatchEvent(new Event('coolprop-ready'))}};</script><script src="coolprop.js"></script><script src="app.js"></script></body></html>
+<div class="panel"><h2>Toestandspunten</h2><table><thead><tr><th>Punt</th><th>Plaats</th><th>Druk (bar)</th><th>Temperatuur (°C)</th><th>Enthalpie (kJ/kg)</th><th>Entropie (kJ/kgK)</th></tr></thead><tbody id="states"></tbody></table></div>
+</section></main>
+<!-- BELANGRIJK: coolprop.js is een ES-module en moet dus met type=module geladen worden. -->
+<script type="module" src="./app.js"></script>
+</body></html>
